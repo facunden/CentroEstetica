@@ -1,0 +1,115 @@
+<!--<div class="row justify-content-center m-5">-->
+<!--  <div class="col-sm-6">-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <h2 class="card-title">Crear Carpeta</h2>-->
+<!--        <div class="form-group">-->
+<!--          <label for="nombre">Nombre:</label>-->
+<!--          <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="nombreCarpetaNueva"-->
+<!--                 required></div>-->
+<!--        <button mat-raised-button color="dro" (click)="createFolder()">Crear Carpeta</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<!--<div class="row justify-content-center m-5">-->
+<!--  <div class="col-sm-6">-->
+<!--    <div class="card">-->
+<!--      <div class="card-body">-->
+<!--        <h2 class="card-title">Guardar Archivo</h2>-->
+<!--        <div class="form-group">-->
+<!--          <label for="carpeta">Carpeta:</label>-->
+<!--          <select id="carpeta" [(ngModel)]="selectedCarpeta">-->
+<!--            <option disabled selected value="0">SELECCIONE UNA CARPETA...</option>-->
+<!--            <option *ngFor="let carpeta of carpetas" [value]="carpeta.id">{{carpeta.name}}</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label for="file">Choose File</label>-->
+<!--          <input type="file" id="file" (change)="handleFileInput($event.target['files'])">-->
+<!--        </div>-->
+<!--        <button mat-raised-button color="dro" (click)="upload()">Upload</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<div class="row justify-content-center my-2">
+  <div class="col-sm-10">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Subir Archivo a cliente</h2>
+        <div class="form-group">
+          <label for="archivoCliente">Seleccione un archivo</label><br>
+          <input type="file" id="archivoCliente" (change)="handleFileInput($event.target['files'])">
+        </div>
+        <div class="form-group">
+          <label for="nombreArchivo">Nombre Archivo:</label>
+          <input type="text" class="form-control" id="nombreArchivo" name="nombre" [(ngModel)]="nombreArchivo"
+                 required>
+        </div>
+        <div class="form-group">
+          <label for="tipoArchivo">Tipo:</label>
+          <select id="tipoArchivo" class="form-control" name="tipoArchivo" [(ngModel)]="selectedCarpeta"
+                  required>
+            <option disabled selected value="0">--ELIJA UNA CATEGORÍA--</option>
+            <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+          </select>
+        </div>
+        <button mat-raised-button color="dro" (click)="uploadACliente()" [disabled]="fileToUpload==null || selectedCarpeta==0">Cargar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center my-2">
+  <div class="col-sm-10">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Listado Archivos</h2>
+        <div style="float: right;margin-bottom: 10px;margin-top: -10px;" *ngIf="selectedFilter != 0">
+          <button mat-raised-button color="dro-danger" (click)="filtradoLista('SF')">Borrar Filtro</button>
+        </div>
+        <div *ngIf="archivosCarpeta?.length==0 && selectedFilter == 0">
+          <h1 style="margin: 20px;text-align: center">EL CLIENTE AUN NO TIENE ARCHIVOS CARGADOS</h1>
+        </div>
+        <div *ngIf="archivosCarpeta?.length==0 && selectedFilter != 0">
+          <h1 style="margin: 20px;text-align: center">EL CLIENTE NO POSEE ARCHIVOS EN ESTA CATEGORÍA</h1>
+        </div>
+        <div *ngIf="archivosCarpeta?.length>0">
+        <div class="form-group">
+          <label for="filtro">Filtro:</label>
+          <select id="filtro" class="form-control" name="filtro" [(ngModel)]="selectedFilter" (change)="filtradoLista(selectedFilter)"
+                  required>
+            <option disabled selected value="0">--ELIJA UNA CATEGORÍA--</option>
+            <option *ngFor="let tipo of tipos" [value]="tipo">{{tipo}}</option>
+          </select>
+        </div>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>FECHA</th>
+            <th>CATEGORIA</th>
+            <th>NOMBRE</th>
+            <th>TIPO</th>
+            <th>ACCIONES</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let archivo of archivosCarpeta | paginate: { itemsPerPage: 10, currentPage: p}">
+            <td data-label="Fecha" >{{archivo?.createdTime | date: 'dd/MM/yyyy HH:mm'}}</td>
+            <td data-label="Categoría" >{{archivo?.name.split('-')[0].toUpperCase()}}</td>
+            <td data-label="Nombre" >{{archivo?.name.split('-')[1].toUpperCase()}}</td>
+            <td data-label="Tipo">{{archivo?.fullFileExtension}}</td>
+            <td data-label="Acciones"><button mat-raised-button color="dro" (click)="getFile(archivo.id)">VER</button></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+        <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

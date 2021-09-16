@@ -1,0 +1,42 @@
+input{
+  text-transform: uppercase;
+}
+
+button{
+  float: right;
+  margin-top: 10px;
+  right: 10px;
+  bottom: 10px;
+}
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+::ng-deep mat-checkbox label {
+  margin-bottom: 2px !important;
+  margin-left: 5px !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+@media screen and (max-width: 800px) {
+  .m-5{
+    margin: 3rem 0 !important;
+  }
+  .col-sm-6{
+    flex: 0 0 100%;
+    max-width: 95%;
+  }
+}

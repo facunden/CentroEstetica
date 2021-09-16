@@ -1,0 +1,212 @@
+<div *ngIf="!isLoaded" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded" class="contenedor">
+  <div class="jumbotron jumbotron-fluid">
+    <h2 class="display-4 mx-5 centrado">{{cliente.nombre_cliente}}
+      <img src="assets/open-iconic-master/svg/pencil.svg" class="icono cursor" data-toggle="modal"
+           data-target="#EditarClienteModal"></h2>
+    <p class="lead mx-5 centrado">Dirección: {{cliente.direccion}} | DNI: {{cliente.dni}} | E-Mail: {{cliente.email}} |
+      Telefonos: {{cliente.telefono}} <span *ngIf="cliente.telefono_aux">/ {{cliente.telefono_aux}}</span> | Fecha de nacimiento:
+      {{cliente.fecha_nacimiento | date : 'dd/MM/yyyy' : 'utc'}}</p>
+    <button class="centradoBotones" mat-raised-button color="dro" routerLink="/file-upload/{{cliente.id}}">Archivos
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="EditarClienteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-hidden="true" *ngIf="isLoaded">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="exampleModalLabel">Editar Cliente</h2>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Nombre:</p>
+            </div>
+            <div class="col-9">
+              <input type="text" [(ngModel)]="editCliente.nombre_cliente" name="NombreCliente" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">DNI:</p>
+            </div>
+            <div class="col-9">
+              <input type="number" [(ngModel)]="editCliente.dni" name="DNI" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Fecha nacimiento:</p>
+            </div>
+            <div class="col-9">
+              <input type="date" [(ngModel)]="editCliente.fecha_nacimiento" name="fechaNacimiento" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Dirección:</p>
+            </div>
+            <div class="col-9">
+              <input type="text" [(ngModel)]="editCliente.direccion" name="Direccion" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">E-Mail:</p>
+            </div>
+            <div class="col-9">
+              <input type="email" [(ngModel)]="editCliente.email" name="Direccion" required
+                     pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Teléfono:</p>
+            </div>
+            <div class="col-9">
+              <input type="number" [(ngModel)]="editCliente.telefono" name="Telefono" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Teléfono Aux:</p>
+            </div>
+            <div class="col-9">
+              <input type="number" [(ngModel)]="editCliente.telefono_aux" name="TelefonoAux">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Referido:</p>
+            </div>
+            <div class="col-9">
+              <select id="referido" class="select-cliente" name="referido" [(ngModel)]="editCliente.referido">
+                <option value="INSTAGRAM">Instagram</option>
+                <option value="FACEBOOK">Facebook</option>
+                <option value="RECOMENDACION">Recomendacion</option>
+                <option value="WEB">Página web</option>
+                <option value="OTRO">Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3">
+              <p class="card-text">Persona Referida:</p>
+            </div>
+            <div class="col-9">
+              <ng-autocomplete [data]="referidos" [initialValue]="referidoSelected"
+                               placeHolder="Busque un referido si posee" (selected)="editCliente.fk_referido = $event.id"
+                               name="referName" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                               [notFoundTemplate]="notFoundTemplate"
+              ></ng-autocomplete>
+              <ng-template #itemTemplate let-item>
+                <a [innerHTML]="item.nombre_referido"></a>
+              </ng-template>
+              <ng-template #notFoundTemplate>
+                <div [innerHTML]="notFound"></div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button #closeModal type="button" mat-raised-button color="dro-danger" data-dismiss="modal">Cancelar</button>
+          <button mat-raised-button color="dro" class="mx-2" (click)="updateCliente(editCliente)">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-accordion>
+    <mat-expansion-panel hideToggle class="observaciones">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <strong style="text-align: center; margin: auto">OBSERVACIONES ({{cantidadObservaciones}})</strong>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <span class="observationCreation">
+        <mat-form-field>
+          <mat-label>Nueva Observacion</mat-label>
+          <input matInput [(ngModel)]="nuevaObservacion.observacion">
+        </mat-form-field>
+        <button class="observationButton" mat-raised-button color="dro" (click)="createObservacion()" [disabled]="nuevaObservacion.observacion==''">Añadir</button>
+      </span>
+      <mat-card *ngFor="let observacion of observaciones">{{observacion.observacion}}
+        <svg (click)="deleteObservacion(observacion.id)" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x-circle deleteObservation" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+      </svg>
+        <mat-divider></mat-divider>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="center-table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>TRATAMIENTO</th>
+        <th>ESTADO</th>
+  <!--      <th class="col">ACCIONES</th>-->
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tratamiento of tratamientos" [ngClass]="
+    {'enProceso': tratamiento.id_estado_tratamiento == 1,
+    'comenzado': tratamiento.id_estado_tratamiento==2,
+    'terminado': tratamiento.id_estado_tratamiento==3,
+    'cancelado': tratamiento.id_estado_tratamiento==4}">
+        <td class="cursor" data-label="Tratamiento" (click)="abrirGestiones(tratamiento.id_tratamiento)">{{tratamiento?.nombre_tratamiento}} (<b>{{tratamiento?.cantidad}}</b>)</td>
+  <!--      <td class="col col-2">{{tratamiento?.fecha_inicio | date: 'dd/MM/yyyy' : 'utc'}}</td>-->
+  <!--      <td class="col col-2">{{tratamiento?.fecha_fin | date: 'dd/MM/yyyy' : 'utc'}}</td>-->
+        <td>
+          <p class="card-text">
+            <select class="form-control" name="estadoTratamiento" required [(ngModel)]="tratamiento.id_estado_tratamiento"
+                    (change)="cambiarEstadoTratamiento(tratamiento.id,$event.target)">
+              <option value="1">PENDIENTE COMIENZO</option>
+              <option value="2">EN PROCESO</option>
+              <option value="3">TERMINADO</option>
+              <option value="4">CANCELADO</option>
+            </select>
+          </p>
+        </td>
+  <!--      <td class="col">-->
+  <!--        <button mat-raised-button color="dro" (click)="abrirGestiones(tratamiento.id_tratamiento)">Ver gestiones-->
+  <!--        </button>-->
+  <!--      </td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="navbar fixed-bottom footer">
+    <div class="botonesFooter">
+    <span class="separador"><svg routerLink="home" width="2.2em" height="2.2em" viewBox="0 0 16 16"
+                                 class="bi bi-arrow-left-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path fill-rule="evenodd"
+            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+    </svg></span>
+      <span class="separador"><svg routerLink="/home" width="2.2em" height="2.2em" viewBox="0 0 16 16"
+                                   class="bi bi-house" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+            d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+      <path fill-rule="evenodd"
+            d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+    </svg></span>
+      <span class="separador"><svg routerLink="/asignarTratamiento/{{idCliente}}" width="2.2em" height="2.2em"
+                                   viewBox="0 0 16 16" class="bi bi-plus-circle" fill="currentColor"
+                                   xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path fill-rule="evenodd"
+            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+    </svg></span>
+    </div>
+  </footer>
+</div>
+
+

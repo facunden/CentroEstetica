@@ -1,0 +1,48 @@
+nav{
+  background-color: #b88476 !important;
+  width: 100% !important;
+}
+
+#logo{
+  width: 64px;
+  height: 53px;
+}
+
+#logout{
+  color: white;
+  border-color: white;
+}
+
+.cont{
+    height:100%;
+    padding-top:0px;
+    float:right;
+}
+.cont label{
+    color:#797d7f;
+    font-size:12.9px;
+}
+
+input[type="search"]{
+    width:250px;
+    margin:10px;
+    padding:10px 16px;
+    border-radius:32px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    outline:none;
+    border:1px solid #fff;
+    background:#fff;
+    transition:all 0.5s;
+}
+input[type="search"]:focus{
+    background:#fff;
+    width:350px;
+}
+
+@media screen and (max-width: 800px){
+  input[type="search"]:focus{
+    background:#fff;
+    width:250px;
+  }
+}

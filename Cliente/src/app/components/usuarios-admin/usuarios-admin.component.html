@@ -1,0 +1,128 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+<div class="center-table">
+  <table class="table" *ngIf="!selected">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Nombre</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let usuario of usuarios">
+      <td data-label="ID">{{usuario.id}}</td>
+      <td data-label="Usuario">{{usuario.usuario}}</td>
+      <td data-label="Nombre">{{usuario.nombreApellido}}</td>
+      <td data-label="ACCIONES">
+        <button mat-raised-button color="dro"  class="mx-1" (click)="abrirUsuario(usuario)">Ver</button>
+        <button mat-raised-button color="dro-danger" class="btn btn-danger mx-1">Eliminar</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="selected">
+  <form style="width: 80%; margin: 20px auto">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" [value]="usuario.nombreApellido"
+             [(ngModel)]="usuario.nombreApellido">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" name="password" (change)="cambiaPW=true"
+             [value]="usuario.password" [(ngModel)]="usuario.password">
+    </div>
+    <div class="form-check">
+      <mat-checkbox [(ngModel)]="usuario.flagManejoTareas" name="flagManejoTareas" color="primary">Manejo Tareas</mat-checkbox>
+    </div>
+    <div class="form-check">
+      <mat-checkbox [(ngModel)]="usuario.flagCrearUsuario" name="flagCrearUsuario" color="primary">Manejo Usuarios</mat-checkbox>
+    </div>
+    <div class="form-check">
+      <mat-checkbox [(ngModel)]="usuario.flagManejoCaja" name="flagManejoCaja" color="primary">Manejo Cajas</mat-checkbox>
+    </div>
+    <div class="form-check">
+      <mat-checkbox [(ngModel)]="usuario.flagGiftCard" name="flagManejoGiftCard" color="primary">Manejo GiftCards</mat-checkbox>
+    </div>
+    <div class="form-check">
+      <mat-checkbox [(ngModel)]="usuario.flagStock" name="flagStock" color="primary">Manejo Stock</mat-checkbox>
+    </div>
+    <br>
+    <mat-label>Permisos del usuario</mat-label>
+    <mat-form-field class="example-chip-list" style="width: 100%">
+      <mat-chip-list #chipList aria-label="Selección de permisos">
+        <mat-chip
+          *ngFor="let permiso of permisosUsuario"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(permiso)">
+          {{permiso.descripcion}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          #PermisoInput
+          [formControl]="permisoCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelected($event)">
+        <mat-option *ngFor="let permiso of filteredPermisos | async" [value]="permiso">
+          {{permiso.descripcion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br>
+    <mat-label>Pendientes Usuario</mat-label>
+    <mat-form-field class="example-chip-list" style="width: 100%">
+      <mat-chip-list #chipListP aria-label="Selección de permisos">
+        <mat-chip
+          *ngFor="let pendiente of pendientesUsuario"
+          [selectable]="selectableP"
+          [removable]="removableP"
+          (removed)="removeP(pendiente)">
+          {{pendiente.nombre_gestion}}
+          <mat-icon matChipRemove *ngIf="removableP">cancel</mat-icon>
+        </mat-chip>
+        <input
+          #PendienteInput
+          [formControl]="pendientesCtrl"
+          [matAutocomplete]="autoP"
+          [matChipInputFor]="chipListP"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes">
+      </mat-chip-list>
+      <mat-autocomplete #autoP="matAutocomplete" (optionSelected)="onSelectedP($event)">
+        <mat-option *ngFor="let pendiente of filteredPendientes | async" [value]="pendiente">
+          {{pendiente.nombre_gestion}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+
+    <!--      <label><h5>LISTA DE PERMISOS</h5></label>-->
+    <!--    <div *ngIf="isLoaded">-->
+    <!--    <div class="form-check" *ngFor="let permiso of permisos">-->
+    <!--      <input class="form-check-input" name="permiso{{permiso.id}}" type="checkbox" [checked]="getPermiso(permiso)" (change)="checkPermiso($event,permiso)" id="{{permiso.id}}">-->
+    <!--      <label class="form-check-label" for="{{permiso.id}}">{{permiso.descripcion}}</label>-->
+    <!--    </div>-->
+    <!--    </div>-->
+    <!--    <br>-->
+    <!--    <label><h5>LISTA DE PENDIENTES</h5></label>-->
+    <!--    <div *ngIf="isLoaded">-->
+    <!--      <div class="form-check" *ngFor="let pendiente of pendientes">-->
+    <!--        <input class="form-check-input" name="pendiente{{pendiente.id}}" type="checkbox" [checked]="getPendientes(pendiente)" (change)="checkPendiente($event,pendiente)">-->
+    <!--        <label class="form-check-label">{{pendiente.nombre_gestion}}</label>-->
+    <!--      </div>-->
+    <!--    </div>-->
+    <!--    <br>-->
+    <button mat-raised-button color="dro" class="mx-1 my-1" (click)="updateUsuario(usuario,usuario.id)">Enviar</button>
+    <button mat-raised-button color="dro-danger" class="mx-1 my-1" routerLink="/panel">Volver</button>
+  </form>
+</div>
+</div>

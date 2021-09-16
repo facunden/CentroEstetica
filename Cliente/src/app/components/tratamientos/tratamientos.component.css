@@ -1,0 +1,232 @@
+.icono {
+  height: 16px;
+  width: 16px;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.contenedor{
+  margin-bottom: 47px;
+}
+
+.select-cliente {
+  width: 100%;
+  height: 26px;
+}
+
+.footer {
+  margin-top: 20px;
+  background-color: #b88476;
+  height: 47px;
+}
+.observaciones {
+  margin: 0 auto 10px auto;
+  width: 74%;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent;
+  bottom: 0;
+  color: transparent;
+  cursor: pointer;
+  height: auto;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: auto;
+}
+
+.mat-accordion>.mat-expansion-panel-spacing:last-child, .mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing {
+  margin-bottom: 10px;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+  box-shadow: none;
+}
+
+tbody tr:nth-last-child(1){
+  margin-bottom: 50px;
+}
+
+.jumbotron {
+  padding: 2rem 2rem !important;
+  margin-bottom: 10px;
+}
+
+.modal-body .row {
+  margin: 5px;
+}
+
+.botonesFooter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.separador {
+  color: white;
+  margin: 10px
+}
+
+.modal-body .row input {
+  width: 100%;
+}
+
+.centrado {
+  text-align: center;
+}
+
+.centradoBotones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.enProceso {
+  background-color: rgba(255,255,0,0.2) !important;
+}
+
+.comenzado {
+  background-color: rgba(0,255,0,0.2) !important;
+}
+
+.terminado {
+  background-color: rgba(128,0,0,0.2) !important;
+}
+
+.cancelado {
+  background-color: rgba(230,0,0,0.2) !important;
+}
+
+#nuevoTratamiento {
+  float: right;
+}
+
+.table {
+  width: 82%;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin: 10px;
+}
+
+.center-table {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.observationCreation {
+  width: 100%;
+}
+
+mat-form-field {
+  width: 85%;
+}
+
+.observationButton {
+  float: right;
+  width: 15%;
+}
+
+.deleteObservation {
+  color: red;
+  float: right;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 800px) {
+  .w-25 {
+    width: 95% !important;
+  }
+
+  .observaciones {
+    width: 94%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  mat-card {
+    padding: 16px 5px;
+  }
+
+  .observationButton {
+    width: 100%;
+    float: none;
+  }
+
+  .center-table {
+    margin: 10px auto;
+    width: 95%;
+  }
+
+  .deleteObservation {
+    color: red;
+  }
+
+  .table {
+    border: 0;
+    width: 99%;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .center-name {
+    text-align: center !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  table tr {
+    -webkit-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    -moz-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    border-radius: 6px;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+
+  .noMostrar{
+    display: none !important;
+  }
+}
+
+

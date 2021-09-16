@@ -1,0 +1,53 @@
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #CrearTabulacionForm="ngForm">
+          <h5 class="card-title">Agregar tabulacion a Gestion</h5>
+          <p><ng-autocomplete [data]="tiposDeGestion" name="crearObsTab" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                              [notFoundTemplate]="notFoundTemplate" (selected)="tipoGestionSelected = $event" required></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_gestion"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </p>
+          <div class="form-group">
+            <label for="nombreTabulacion">Nombre tabulacion:</label>
+            <input type="text" class="form-control" id="nombreTabulacion" name="nombreTabulacion" [(ngModel)]="nombreTabulacion" required>
+          </div>
+          <button mat-raised-button color="dro" [disabled]="!CrearTabulacionForm.valid" (click)="agregarObservacionTab()">Crear Tabulacion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #EditTabulacionForm="ngForm">
+          <h5 class="card-title">Editar tabulacion de Gestion</h5>
+          <p><ng-autocomplete [data]="tiposDeGestion" name="editGestion" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                              [notFoundTemplate]="notFoundTemplate" (selected)="getObservacionesTabPorIdGestion($event.id);obsTabSelected=$event" (inputCleared)="listaObsTab=[];obsTabSelected=undefined"></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_gestion"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </p>
+          <p class="card-text"><p><select *ngIf="listaObsTab!=undefined" class="form-control" name="nombreGestion" required [(ngModel)]="obsTabSelected" (change)="copiarNombre(obsTabSelected.tabulacion)">
+          <option *ngFor="let obs of listaObsTab" [ngValue]="obs">{{obs?.tabulacion}}</option></select></p>
+          <div class="form-group" *ngIf="obsTabSelected">
+            <label for="nombreTabulacionEdit">Nombre tabulacion:</label>
+            <input type="text" class="form-control" id="nombreTabulacionEdit" name="nombreTabulacionEdit" [(ngModel)]="nombreTabulacionEdit" required>
+          </div>
+          <button mat-raised-button color="dro" [disabled]="!EditTabulacionForm.valid" (click)="editarObservacionTabulada(obsTabSelected.id)">Editar Tabulacion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

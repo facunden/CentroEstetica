@@ -1,0 +1,92 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+  <h1>CAJA DIARIA</h1>
+  <div class="filters">
+    <div>
+      <!--  <mat-form-field appearance="fill" class="full-width">-->
+      <!--    <mat-label>Seleccione un rango de fecha</mat-label>-->
+      <!--    <mat-date-range-input [rangePicker]="picker">-->
+      <!--      <input matStartDate [(ngModel)]="fDesde" placeholder="Desde">-->
+      <!--      <input matEndDate [(ngModel)]="fHasta" placeholder="Hasta">-->
+      <!--    </mat-date-range-input>-->
+      <!--    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+      <!--    <mat-date-range-picker #picker></mat-date-range-picker>-->
+      <!--  </mat-form-field>-->
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Seleccione un rango de fecha</mat-label>
+        <mat-date-range-input [rangePicker]="rangePicker">
+          <input matStartDate [(ngModel)]="fDesde" placeholder="Desde">
+          <input matEndDate [(ngModel)]="fHasta" placeholder="Hasta">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #rangePicker>
+          <mat-date-range-picker-actions>
+            <button mat-button matDateRangePickerCancel color="dro-danger" (click)="getAll()">Borrar Filtros</button>
+            <button mat-raised-button color="dro" matDateRangePickerApply (click)="filtrarEntreFechas()">Aplicar
+            </button>
+          </mat-date-range-picker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+<!--      <span class="botones">-->
+<!--    <button mat-raised-button color="dro" type="submit" (click)="filtrarEntreFechas()" class="full-width botones"-->
+<!--            [disabled]="fDesde == undefined || fHasta == undefined">Filtrar</button>-->
+<!--    <button mat-raised-button color="dro-danger" type="submit" (click)="getAll()" class="full-width botones"-->
+<!--            [disabled]="fDesde == undefined || fHasta == undefined">Borrar filtro</button>-->
+<!--  </span>-->
+    </div>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Filtrar por proveedor</mat-label>
+      <mat-select [(ngModel)]="filtProv" (ngModelChange)="filtrar()" value="" #filtroProveedor>
+        <mat-option value="">TODOS</mat-option>
+        <mat-option *ngFor="let proveedor of proveedores"
+                    [value]="proveedor.nombre_apellido">{{proveedor.nombre_apellido.toUpperCase()}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Filtrar por tipo de imputacion</mat-label>
+      <mat-select [(ngModel)]="filtImp" (ngModelChange)="filtrar()" #filtroImputacion>
+        <mat-option value="">INGRESOS Y EGRESOS</mat-option>
+        <mat-option value="I">INGRESO</mat-option>
+        <mat-option value="E">EGRESO</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <br>
+  <div class="center-table">
+    <table class="table">
+      <thead>
+      <tr class="table-header">
+        <th>DESCRIPCIÓN</th>
+        <th (click)="sortBy('MONTO')" style="cursor: pointer">MONTO</th>
+        <th (click)="sortBy('FECHA')" style="cursor: pointer">FECHA</th>
+        <th (click)="sortBy('PROVEEDOR')" style="cursor: pointer">PROVEEDOR</th>
+        <th *ngIf="usuario.id==2">ACCIONES</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let caja of cajas| paginate: { itemsPerPage: 10, currentPage: p}" class="cursor">
+        <td data-label="Descripción">{{caja?.descripcion}}</td>
+        <td data-label="Monto"
+            [ngClass]="{'ingreso': caja.tipo == 'I','egreso': caja.tipo == 'E'}">{{caja?.monto | currency: 'ARS '}}</td>
+        <td data-label="Fecha">{{caja?.fecha | date: 'dd/MM/yyyy' : 'utc'}}</td>
+        <td data-label="Proveedor">{{caja?.nombre_apellido}}</td>
+        <td data-label="Acciones" *ngIf="usuario.id==2">
+          <button mat-raised-button color="dro" *ngIf="usuario.id==2" (click)="deleteMovimiento(caja.id)">Eliminar
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <br>
+    <pagination-controls class="centrado" previousLabel="Anterior" nextLabel="Siguiente"
+                         (pageChange)="p = $event"></pagination-controls>
+  </div>
+  <br>
+  <div class="total">
+    <div style="text-align: right"><span style="font-weight: bold">TOTAL: </span><span
+      [ngClass]="{'ingreso': total>=0,'egreso': total<0}">{{total | currency: 'ARS '}}</span></div>
+  </div>
+</div>

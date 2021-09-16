@@ -1,0 +1,12 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <div *ngIf="datosIncorrectos" class="alert alert-danger" role="alert">
+      Usuario o contraseña incorrecto
+    </div>
+    <form>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="USUARIO" [(ngModel)]="usuario.username">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="CONTRASEÑA" [(ngModel)]="usuario.password">
+      <button type="submit" class="fadeIn fourth" (click)="loguear()">Iniciar Sesión</button>
+    </form>
+  </div>
+</div>

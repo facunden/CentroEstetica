@@ -1,0 +1,30 @@
+<div class="center flex">
+  <div class="formulario">
+    <h1 style="text-align: center;padding: 15px">Bienvenido {{usuario.nombreApellido}}</h1>
+    <h3 style="text-align: center;padding-bottom: 50px;margin-top: -10px">¿Cómo estás hoy?</h3>
+    <a routerLink="/administrarClientes">
+      <button class="botones">CREAR CLIENTE</button>
+    </a>
+    <a routerLink="/lista-clientes">
+      <button class="botones">LISTA CLIENTES</button>
+    </a>
+    <a routerLink="/crearProveedor">
+      <button class="botones">CREAR PROVEEDOR</button>
+    </a>
+    <a routerLink="/listaProveedores">
+      <button class="botones">LISTA PROVEEDORES</button>
+    </a>
+    <a routerLink="/gift-card" *ngIf="usuario.flagGiftCard == 1">
+      <button class="botones">GIFT CARD</button>
+    </a>
+    <a routerLink="/lista-gift-card">
+      <button class="botones">LISTA GIFT CARDS</button>
+    </a>
+    <a routerLink="/caja-diaria">
+      <button class="botones">CAJA DIARIA</button>
+    </a>
+    <a routerLink="/lista-stock" *ngIf="usuario.flagStock == 1">
+      <button class="botones">LISTA STOCK</button>
+    </a>
+  </div>
+</div>

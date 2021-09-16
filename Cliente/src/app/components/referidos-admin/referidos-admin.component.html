@@ -1,0 +1,72 @@
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #CrearReferidoForm="ngForm">
+          <h2 class="card-title">Crear nuevo referido</h2>
+          <div class="form-group">
+            <label for="nombreReferido">Nombre del referido:</label>
+            <input type="text" class="form-control" id="nombreReferido" name="nombreReferido" [(ngModel)]="nombre_referido" required>
+          </div>
+          <button mat-raised-button color="dro" (click)="crearReferido()" [disabled]="!CrearReferidoForm.valid">Crear Referido</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #EditarReferForm="ngForm">
+          <h2 class="card-title">Editar categoría de Tipo Gestion</h2>
+          <div class="form-group">
+            <ng-autocomplete [data]="referidos"
+                             placeHolder="Busque el referido que desee editar" (selected)="copiarNombre($event.nombre_referido);referidoSelected = $event"
+                             name="referName" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                             [notFoundTemplate]="notFoundTemplate"
+            ></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_referido"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+          <div class="form-group">
+            <label for="nombreEdit">Nombre del referido:</label>
+            <input type="text" class="form-control" id="nombreEdit" name="nombreEdit" [(ngModel)]="nombre_editado" required>
+          </div>
+          <button mat-raised-button color="dro" (click)="updateReferido()" [disabled]="!EditarReferForm.valid">Editar referido</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #DeleteReferForm="ngForm">
+          <h2 class="card-title">Editar categoría de Tipo Gestion</h2>
+          <div class="form-group">
+            <ng-autocomplete [data]="referidos"
+                             placeHolder="Busque el referido que desea eliminar"(selected)="deleteId = $event.id"
+                             name="referName" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                             [notFoundTemplate]="notFoundTemplate"
+            ></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_referido"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+          <button mat-raised-button color="dro-danger" (click)="deleteReferido(deleteId)" [disabled]="deleteId==0">Borrar referido</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

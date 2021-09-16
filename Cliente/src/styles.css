@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+button{
+  outline: none !important;
+}
+
+.mat-dro {
+  background-color: #b88476;
+  color: #fff;
+}
+
+.mat-dro-danger{
+  background-color: rgb(255,128,128);
+  color: #fff;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+html, body { height: 100%; padding: 0px;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

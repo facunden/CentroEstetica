@@ -1,0 +1,37 @@
+<form>
+  <div class="form-group">
+    <label for="producto">Producto</label>
+    <input type="text" class="form-control" id="producto" placeholder="Nombre del producto" [(ngModel)]="stock.description" name="producto">
+  </div>
+  <div class="form-group">
+    <label for="categoria">Categoría</label>
+    <select class="form-control" id="categoria" [(ngModel)]="stock.category" name="categoria">
+      <option disabled value="0">SELECCIONE UNA CATEGORÍA...</option>
+      <option>ODONTOLOGIA</option>
+      <option>ESTETICA</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="cantidad">Cantidad</label>
+    <input type="number" class="form-control" id="cantidad" [(ngModel)]="stock.quantity" name="cantidad" placeholder="Cantidad actual" >
+  </div>
+  <div class="form-group">
+    <label for="cantidadMin">Cantidad Mínima</label>
+    <input type="number" class="form-control" id="cantidadMin" [(ngModel)]="stock.min_quantity" name="cantidadMinima" placeholder="Cantidad minima">
+  </div>
+  <div class="form-group">
+    <label for="costo">Costo</label>
+    <input type="text" class="form-control" id="costo" [(ngModel)]="stock.cost" name="costo" placeholder="Costo del producto">
+  </div>
+  <div class="form-group">
+    <label for="valorVenta">Valor venta</label>
+    <input type="text" class="form-control" id="valorVenta" [(ngModel)]="stock.sell_price" name="valorVenta" placeholder="Valor de venta del producto">
+  </div>
+  <div class="form-group">
+    <label for="fechaVencimiento">Fecha de vencimiento</label>
+    <input type="date" class="form-control" id="fechaVencimiento" [(ngModel)]="stock.expiration_date" name="fechaVencimiento" placeholder="Fecha de vencimiento del producto">
+  </div>
+  <button mat-raised-button color="dro" *ngIf="isNewProduct" (click)="newProduct()">Crear producto</button>
+  <button mat-raised-button color="dro" *ngIf="!isNewProduct" (click)="updateProduct(stock.id,stock)">Editar producto</button>
+  <button mat-raised-button color="dro-danger" class="mx-2" *ngIf="!isNewProduct" (click)="deleteProduct(stock.id)">Borrar producto</button>
+</form>

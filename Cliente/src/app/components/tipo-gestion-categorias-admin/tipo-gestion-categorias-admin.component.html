@@ -1,0 +1,37 @@
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #CrearCatGestionForm="ngForm">
+          <h2 class="card-title">Crear nueva categoría de Gestion</h2>
+          <div class="form-group">
+            <label for="NombreCatTipoGestion">Nombre categoría:</label>
+            <input type="text" class="form-control" id="NombreCatTipoGestion" name="NombreCatTipoGestion" [(ngModel)]="categoriaGestion.descripcion" required>
+          </div>
+          <button mat-raised-button color="dro" (click)="crearCatTipoGestion()" [disabled]="!CrearCatGestionForm.valid">Crear Tipo gestion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #EditarCatGestionForm="ngForm">
+          <h2 class="card-title">Editar categoría de Tipo Gestion</h2>
+          <p class="card-text"><p><select class="form-control" name="nombreGestion" required [(ngModel)]="catTipoDeGestionEditSelected" (change)="copiarNombre(catTipoDeGestionEditSelected.descripcion)">
+          <option *ngFor="let tg of categoriasGestiones" [ngValue]="tg">{{tg['descripcion']}}</option>
+        </select></p>
+          <div class="form-group">
+            <label for="nombreCategroriaGestionEdit">Nombre categoría:</label>
+            <input type="text" class="form-control" id="nombreCategroriaGestionEdit" name="nombreCategroriaGestionEdit" [(ngModel)]="nombreEditado" required>
+          </div>
+          <button mat-raised-button color="dro" (click)="editarCatTipoGestion()" [disabled]="!EditarCatGestionForm.valid">Editar Gestion</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

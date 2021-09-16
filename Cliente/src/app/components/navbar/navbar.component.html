@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" routerLink="/home"><img src="assets/logo.png" id="logo"></a>
+  <button #navbarToggler class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a *ngIf="isLogged" data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link" routerLink="/home" routerLinkActive="active">Inicio</a>
+      </li>
+      <li class="nav-item ">
+        <a *ngIf="isLogged" data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link" routerLink="/gestionesPendientes" routerLinkActive="active">Gestiones Pendientes</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="showPanel" data-toggle="collapse" data-target=".navbar-collapse.show" class="nav-link" routerLink="/panel" routerLinkActive="active">Panel</a>
+      </li>
+<!--      <li class="nav-item ">-->
+<!--        <a *ngIf="isLogged" class="nav-link" routerLink="/calendario" routerLinkActive="active">Calendario</a>-->
+<!--      </li>-->
+    </ul>
+    <div class="cont">
+      <input type="search" placeholder="Buscar clientes..." *ngIf="isLogged" [(ngModel)]="text" (keydown.enter)="search()" (focusout)="text='';collapseNav()" (ngModelChange)="onChange()">
+    </div>
+    <form class="form-inline my-2 my-lg-0">
+      <button class="btn btn-outline-primary my-2 my-sm-0" id="logout" type="submit" *ngIf="isLogged"
+              (click)="logout()">Salir
+      </button>
+    </form>
+  </div>
+</nav>

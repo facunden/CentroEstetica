@@ -1,0 +1,134 @@
+.icono {
+  height: 16px;
+  width: 16px;
+}
+
+.botonesGestionesConObs {
+  color: #39ace7;
+  cursor: pointer;
+}
+
+.botonesGestionesSinObs {
+  color: lightgray;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.botonesGestionesDanger {
+  color: rgb(255,128,128);
+  cursor: pointer;
+}
+
+.botonesFooter{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.footer{
+  background-color: #b88476;
+}
+
+tbody tr:nth-last-child(1){
+  margin-bottom: 50px;
+}
+
+.center-table {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.separador{
+  color: white;
+  margin: 10px
+}
+
+.modal-body .row{
+  margin: 5px;
+}
+
+.modal-body .row input{
+  width: 100%;
+}
+.centrado {
+  text-align: center;
+}
+
+.table {
+  width: 90%;
+  margin: 10px auto;
+}
+
+@media screen and (max-width: 800px) {
+  .w-25 {
+    width: 95% !important;
+  }
+
+  .center-table {
+    margin: 10px auto;
+    width: 95%;
+  }
+
+  .table {
+    border: 0;
+    width: 100%;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .center-name {
+    text-align: center !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  table tr {
+    -webkit-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    -moz-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    border-radius: 6px;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+
+  .noMostrar{
+    display: none !important;
+  }
+}
+
+

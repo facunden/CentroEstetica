@@ -1,0 +1,33 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+<form class="form-inline my-2 my-lg-3 justify-content-center">
+  <input class="form-control mr-sm-2 w-25" type="search" name="nombre" placeholder="Buscar cliente..."
+         aria-label="Search" [(ngModel)]="searchString">
+</form>
+<div class="center-table">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Direccion</th>
+      <th>Telefono</th>
+      <th>Telefono Aux</th>
+      <th>E-Mail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="cursor" *ngFor="let cliente of clientes | filterPipe: searchString | paginate: { itemsPerPage: 10, currentPage: p}" (click)="router.navigate(['tratamiento/'+cliente.id])">
+      <td class="center-name">{{cliente?.nombre_cliente}}</td>
+      <td data-label="Dirección">{{cliente?.direccion}}</td>
+      <td data-label="Teléfono">{{cliente?.telefono}}</td>
+      <td data-label="Teléfono Aux" [ngClass]="{'noMostrar': !cliente?.telefono_aux}">{{cliente?.telefono_aux}}</td>
+      <td data-label="E-Mail">{{cliente?.email}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<pagination-controls class="centrado" nextLabel="Siguiente" previousLabel="Anterior" (pageChange)="p = $event"></pagination-controls>
+</div>

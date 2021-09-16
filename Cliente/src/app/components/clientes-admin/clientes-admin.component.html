@@ -1,0 +1,69 @@
+<div class="row justify-content-center my-2">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <h2 class="card-title">Crear nuevo cliente</h2>
+          <div class="form-group">
+            <label for="NombreCliente">Nombre:</label>
+            <input type="text" class="form-control" id="NombreCliente" name="NombreCliente"
+                   [(ngModel)]="cliente.nombre_cliente">
+          </div>
+          <div class="form-group">
+            <label for="DNI">DNI:</label>
+            <input type="number" class="form-control" id="DNI" name="DNI" [(ngModel)]="cliente.dni">
+          </div>
+          <div class="form-group" style="position: relative">
+            <label for="fechaNacimiento">Fecha nacimiento:</label>
+            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento"
+                   [(ngModel)]="cliente.fecha_nacimiento">
+          </div>
+          <div class="form-group">
+            <label for="Direccion">Dirección:</label>
+            <input type="text" class="form-control" id="Direccion" name="Direccion" [(ngModel)]="cliente.direccion">
+          </div>
+          <div class="form-group">
+            <label for="email">E-Mail:</label>
+            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="cliente.email">
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" class="form-control" id="telefono" name="telefono" [(ngModel)]="cliente.telefono">
+          </div>
+          <div class="form-group">
+            <label for="TelefonoAux">Teléfono Auxiliar:</label>
+            <input type="text" class="form-control" id="TelefonoAux" name="TelefonoAux"
+                   [(ngModel)]="cliente.telefono_aux">
+          </div>
+          <div class="form-group">
+            <label for="referido">¿Donde nos encontró? </label>
+            <select id="referido" class="form-control" name="referido" [(ngModel)]="cliente.referido">
+              <option value="INSTAGRAM">Instagram</option>
+              <option value="FACEBOOK">Facebook</option>
+              <option value="RECOMENDACION">Recomendacion</option>
+              <option value="WEB">Página web</option>
+              <option value="OTRO">Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="referName">¿Posee un referido?</label>
+            <mat-checkbox color="primary" (change)="hasRefer = !hasRefer"></mat-checkbox>
+            <ng-autocomplete *ngIf="hasRefer" id="referName" [data]="referidos"
+                             placeHolder="Busque un referido si posee" (selected)="cliente.fk_referido = $event.id"
+                             name="referName" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                             [notFoundTemplate]="notFoundTemplate"
+            ></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_referido"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+          <button mat-raised-button color="dro" (click)="CrearCliente()">Crear Cliente</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

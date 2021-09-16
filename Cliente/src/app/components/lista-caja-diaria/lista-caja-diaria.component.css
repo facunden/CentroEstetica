@@ -1,0 +1,158 @@
+.icono {
+  height: 16px;
+  width: 16px;
+}
+
+.modal-body .row{
+  margin: 5px;
+}
+
+.modal-body .row input{
+  width: 100%;
+}
+
+.centrado {
+  text-align: center;
+}
+
+.ingreso{
+  color: rgb(0,180,0) !important;
+}
+
+.center-table {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.egreso{
+  color: rgb(230,0,0) !important;
+}
+
+#nuevoTratamiento {
+  float: right;
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+}
+
+.filters {
+  margin: 20px auto;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table {
+  width: 100%;
+  margin: auto;
+}
+
+.total{
+  width: 80%;
+  margin: auto;
+  padding-bottom: 15px;
+}
+
+table tr:hover {
+  background-color: #d7d7d7;
+}
+
+.table-header {
+  background-color: white !important
+}
+
+.botones {
+  margin: 5px;
+}
+
+.cursor {
+  cursor: default;
+}
+
+h1{
+  text-align: center;
+  margin: 10px;
+}
+
+
+@media screen and (max-width: 800px) {
+
+  .filters {
+    width: 90%;
+    display: block;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .botones:first-child {
+    margin: 5px;
+    position: relative;
+    left:-5px;
+  }
+
+  .table {
+    width: 95%;
+    margin: auto;
+    border: 0;
+  }
+
+  .center-table {
+    margin: 10px auto;
+    width: 95%;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .center-name {
+    text-align: center !important;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  table tr {
+    -webkit-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    -moz-box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    box-shadow: 3px 3px 6px 0px rgba(168,168,168,1);
+    border-radius: 6px;
+    display: block;
+    margin-bottom: .625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+
+  .noMostrar{
+    display: none !important;
+  }
+}
+
+

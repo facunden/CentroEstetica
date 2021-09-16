@@ -1,0 +1,51 @@
+<div *ngIf="clienteBuscado == true" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<!--<div class="container-fluid">-->
+<!--  <div *ngIf="clienteBuscado == false" class="row">-->
+<!--    <div class="card mx-5 my-3" style="width: 18rem;" *ngFor="let cl of clientes" (click)="abrirTratamientos(cl.id)">-->
+<!--      <div class="card-header">{{cl.nombre_cliente}}</div>-->
+<!--      <div class="card-body">-->
+<!--        <ul class="list-group list-group-flush">-->
+<!--          <li class="list-group-item"><b>DNI:</b> {{cl.dni}}</li>-->
+<!--          <li class="list-group-item"><b>Teléfonos:</b> {{cl.telefono}}<span *ngIf="cl.telefono_aux">/{{cl.telefono_aux}}</span></li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="container-fluid" *ngIf="clienteBuscado == false">-->
+<!--  <mat-card  class="MatCard col-md-12 row" *ngFor="let cl of clientes" (click)="abrirTratamientos(cl.id)">-->
+<!--    <mat-card-header class="card-header-center">-->
+<!--      <mat-card-title class="card-header-center">{{cl.nombre_cliente}}</mat-card-title>-->
+<!--    </mat-card-header>-->
+<!--    <mat-divider></mat-divider><br>-->
+<!--    <mat-card-content>-->
+<!--      <p><b>DNI:</b> {{cl.dni}}</p>-->
+<!--      <p><b>Teléfonos:</b> {{cl.telefono}}<span *ngIf="cl.telefono_aux">/{{cl.telefono_aux}}</span></p>-->
+<!--    </mat-card-content>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<div class="center-table">
+  <table class="table" *ngIf="clienteBuscado == false">
+    <thead>
+    <tr>
+      <th>NOMBRE</th>
+      <th>DNI</th>
+      <th>TELEFONOS</th>
+      <th>EMAIL</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="cursor" *ngFor="let cl of clientes">
+      <td class="center-name" (click)="abrirTratamientos(cl.id)">{{cl.nombre_cliente}}</td>
+      <td data-label="DNI" (click)="abrirTratamientos(cl.id)">{{cl.dni}}</td>
+      <td data-label="Teléfonos"><a href="https://web.whatsapp.com/send?phone=+54{{cl.telefono}}&text&source&data&app_absent"
+        target="_blank">{{cl.telefono}}</a><span *ngIf="cl.telefono_aux">/<a href="https://web.whatsapp.com/send?phone=+54{{cl.telefono_aux}}&text&source&data&app_absent"
+                                                                             target="_blank">{{cl.telefono_aux}}</a></span></td>
+      <td data-label="E-Mail" (click)="abrirTratamientos(cl.id)">{{cl.email}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

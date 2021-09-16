@@ -1,0 +1,26 @@
+<form style="width: 80%; margin: 20px auto" #GCForm="ngForm">
+  <div class="form-group">
+    <label for="nombre">NOMBRE</label>
+    <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="giftCard.nombre" required>
+  </div>
+  <div class="form-group">
+    <label for="dni">DNI</label>
+    <input type="text" class="form-control" id="dni" name="dni"  [(ngModel)]="giftCard.dni" required>
+  </div>
+  <div class="form-group">
+    <label for="condicion">TIPO</label>
+    <select id="condicion" class="form-control" name="condiciones" [(ngModel)]="giftCard.tipo" required>
+      <option value="DE">DESCUENTO</option>
+      <option value="GC">GIFT CARD</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="numero">DESCUENTO/IMPORTE</label>
+    <input type="number" (keydown)="numberOnly($event)" class="form-control" id="numero" name="numero" [(ngModel)]="giftCard.numero" required>
+  </div>
+  <div class="form-group">
+    <label for="fecha_vencimiento">FECHA VENCIMIENTO</label>
+    <input type="date" class="form-control" id="fecha_vencimiento" name="fecha_vencimiento" [min]="hoy" [(ngModel)]="giftCard.fecha_vencimiento" required>
+  </div>
+  <button mat-raised-button color="dro" [disabled]="!GCForm.valid" (click)="crear()">Crear Descuento/Gift Card</button>
+</form>

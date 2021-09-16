@@ -1,0 +1,8 @@
+.table{
+  width: 90%;
+  margin: auto;
+}
+tr td{
+  word-wrap: break-word;
+  font-size: 15px;
+}

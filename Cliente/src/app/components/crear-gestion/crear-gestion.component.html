@@ -1,0 +1,89 @@
+<div class="row justify-content-center my-2">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <h2 class="card-title">Nueva Gestion</h2>
+          <div class="form-group" *ngFor="let i of [].constructor(boxQuantity+1); let index = index">
+            <ng-autocomplete id="{{index}}" [data]="dataList[index]"
+                             placeHolder="Ingrese el nombre de un tipo de gestion..."
+                             name="nuevaGestion" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
+                             (selected)="chargeChild(index+'|'+$event.id);
+                               setTipoGestionSelected(selected[index].split('|')[1])"
+                             [notFoundTemplate]="notFoundTemplate"
+            ></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_gestion"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+          <!--            <ng-container *ngFor="let i of [].constructor(boxQuantity+1); let index = index">-->
+          <!--              <div class="input-group mb-3">-->
+          <!--                <div class="input-group-prepend">-->
+          <!--                  <label class="input-group-text" for="{{index}}">{{index + 1}}</label>-->
+          <!--                </div>-->
+          <!--                <select id="{{index}}" class="custom-select box-divider" [name]="index"-->
+          <!--                        (change)="chargeChild($event.target['value']);setTipoGestionSelected(selected[index].split('|')[1])">-->
+          <!--                  <option disabled selected value="{{index}}|0">SELECCIONE UNA CATEGORIA...</option>-->
+          <!--                  <option [selected]="selected[index] == index+'|'+gestion.id" *ngFor="let gestion of dataList[index]"-->
+          <!--                          value="{{index+'|'+gestion.id}}">{{gestion['nombre_gestion']}}</option>-->
+          <!--                </select>-->
+          <!--              </div>-->
+          <!--            </ng-container>-->
+          <div class="form-group w-100" *ngIf="gestionSelected['notas']">
+            <div class="alert alert-info w-100" role="alert" [innerHTML]="gestionSelected['notas']"></div>
+          </div>
+          <div class="form-group" *ngIf="tareaProgramada">
+            <label for="fechaProgramada">Fecha Programada:</label>
+            <input type="datetime-local" class="form-control" id="fechaProgramada" name="fechaProgramada"
+                   [(ngModel)]="gestion.fecha_programada" required>
+          </div>
+          <div class="form-group">
+          <label for="fechaRealizado">Fecha Realizado:</label>
+          <input type="datetime-local" class="form-control" id="fechaRealizado" name="fechaRealizado"
+                 [(ngModel)]="gestion.fecha_realizado" required>
+        </div>
+          <div class="form-group" *ngIf="observacionNum">
+            <label for="observacionNum">Observacion Numerica:</label>
+            <input type="number" class="form-control" id="observacionNum" name="observacionNum"
+                   [(ngModel)]="gestion.obs_numerica" required>
+          </div>
+          <div class="form-group">
+            <label for="observacion">Observaciones:</label>
+            <textarea class="form-control" id="observacion" name="observacion" rows="3"
+                      [(ngModel)]="gestion.observacion"></textarea>
+          </div>
+          <div class="form-group" *ngIf="gestionSelected.crea_evento_calendar==1">
+            <label for="duracionEvento">Duracion Evento:</label>
+            <input type="number" class="form-control" id="duracionEvento" name="duracionEvento"
+                   [(ngModel)]="duracionEvento" required>
+          </div>
+          <button mat-raised-button color="dro" (click)="crearGestion()" [disabled]="disabled">Crear
+            gestion
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="navbar fixed-bottom footer">
+  <div class="botonesFooter">
+    <span style="color: white; margin: 5px"><svg (click)="volver()" width="2.5em" height="2.5em" viewBox="0 0 16 16"
+                                                 class="bi bi-arrow-left-circle" fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+      <path fill-rule="evenodd"
+            d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+    </svg></span>
+    <span style="color: white; margin: 5px"><svg routerLink="/panel" width="2.5em" height="2.5em" viewBox="0 0 16 16"
+                                                 class="bi bi-house" fill="currentColor"
+                                                 xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd"
+            d="M2 13.5V7h1v6.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V7h1v6.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5zm11-11V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+      <path fill-rule="evenodd"
+            d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+    </svg></span>
+  </div>
+</footer>

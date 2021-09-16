@@ -1,0 +1,47 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+<form class="form-inline my-2 my-lg-3 justify-content-center">
+  <input class="form-control mr-sm-2 w-25" type="search" name="nombre" placeholder="Buscar..."
+         aria-label="Search" [(ngModel)]="searchString">
+</form>
+<div class="center-table">
+  <table class="table">
+    <thead>
+    <tr>
+      <th>NOMBRE</th>
+      <th>DNI</th>
+      <th>TIPO</th>
+      <th>NUMERO</th>
+      <th>IDENTIFICADOR</th>
+      <th>FECHA VENCIMIENTO</th>
+      <th>ACCIÓN</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr
+      *ngFor="let giftCard of giftCards | filterPipe: searchString | paginate: { itemsPerPage: 10, currentPage: p} | replaceCharacters: usuario"
+      [ngClass]="{activo: giftCard.activo == 1,inactivo: giftCard.activo == 0}" class="cursor">
+      <td class="center-name">{{giftCard?.nombre}}</td>
+      <td data-label="DNI">{{giftCard?.dni}}</td>
+      <td data-label="TIPO">{{giftCard?.tipo}}</td>
+      <td data-label="Número"><span *ngIf="giftCard.tipo == 'DE'">{{giftCard?.numero}}%</span><span
+        *ngIf="giftCard.tipo == 'GC'">$ {{giftCard?.numero}}</span></td>
+      <td data-label="Identificador">{{giftCard?.identificador}}</td>
+      <td data-label="Fecha vencimiento">{{giftCard?.fecha_vencimiento | date: 'dd/MM/yyyy' : 'utc'}}</td>
+      <td data-label="Acciones">
+        <span *ngIf="giftCard.activo == 1"><button [disabled]="verifyDate(giftCard)" mat-raised-button color="dro"
+                                                   (click)="update(giftCard.id,0)">Cambiar Estado</button></span>
+        <span *ngIf="giftCard.activo == 0"><button [disabled]="verifyDate(giftCard) || usuario.flagGiftCard == 0"
+                                                   mat-raised-button color="warn" (click)="update(giftCard.id,1)">Cambiar Estado</button></span>
+      </td>
+    </tr>
+    </tbody>
+    <br>
+  </table>
+  <pagination-controls class="centrado" previousLabel="Anterior" nextLabel="Siguiente" (pageChange)="p = $event"></pagination-controls>
+</div>
+</div>
+<br>

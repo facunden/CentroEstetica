@@ -1,0 +1,47 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded" class="details">
+  <div id="info" mat-dialog-content>
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h2 id="title">{{gestion?.gestion_concat ? gestion?.gestion_concat : gestion?.nombre_gestion }}</h2>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <p class="spacer">Fecha de carga: {{gestion?.fecha_carga | date: 'dd/MM/yyyy HH:mm': 'utc'}}</p>
+        <mat-divider></mat-divider>
+        <p class="spacer">Fecha de programada: {{gestion?.fecha_programada | date: 'dd/MM/yyyy HH:mm': 'utc'}}</p>
+        <mat-divider></mat-divider>
+        <p class="spacer" *ngIf="gestion?.fecha_realizado != null && !editGestion">Fecha de realizado: {{gestion?.fecha_realizado | date: 'dd/MM/yyyy HH:mm': 'utc'}}</p>
+        <p class="spacer" *ngIf="editGestion">Fecha de realizado:
+            <input type="datetime-local" name="fechaRealizado" [(ngModel)]="gestion.fecha_realizado">
+        </p>
+        <mat-divider *ngIf="gestion?.fecha_realizado"></mat-divider>
+        <p class="spacer">Usuario de carga: {{gestion?.usuario}}</p>
+        <mat-divider></mat-divider>
+        <p class="spacer" *ngIf="gestion?.usuario_realizado">Usuario de realizado: {{gestion?.usuario_realizado}}</p>
+        <mat-divider *ngIf="gestion?.usuario_realizado"></mat-divider>
+        <p class="spacer" *ngIf="gestion?.obs_numerica">Observación numérica: {{gestion?.obs_numerica}}</p>
+        <mat-divider *ngIf="gestion?.obs_numerica"></mat-divider>
+        <p class="spacer" *ngIf="gestion?.flag_realizado == 1">Realizado: SI</p>
+        <p class="spacer" *ngIf="gestion?.flag_realizado == 0">Realizado: NO</p>
+        <mat-divider></mat-divider>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <div class="observaciones">
+      <p>Observaciónes:</p>
+      <textarea cdkTextareaAutosize rows="4" [disabled]="!editGestion" [(ngModel)]="gestion.observacion"></textarea>
+    </div>
+  </div>
+  <div id="actions" mat-dialog-actions align="end">
+    <button class="boton" mat-raised-button color="dro" *ngIf="!editGestion" (click)="editGestion = !editGestion;arreglarFecha()">Editar gestion</button>
+    <button class="boton" mat-raised-button color="dro" *ngIf="editGestion" (click)="editarGestion()">Guardar cambios</button>
+    <button class="boton" mat-raised-button color="dro" (click)="realizarGestion(gestion)" *ngIf="gestion?.flag_realizado==0">Realizado</button>
+    <button class="boton" mat-raised-button color="dro-danger" (click)="realizarGestion(gestion)" *ngIf="gestion?.flag_realizado==1">No Realizado</button>
+    <button class="boton cerrar" mat-raised-button mat-dialog-close>Cerrar</button>
+  </div>
+</div>
+

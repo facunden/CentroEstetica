@@ -1,0 +1,38 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+  <form class="form-inline my-2 my-lg-3 justify-content-center">
+    <input class="form-control mr-sm-2 w-25" type="search" name="nombre" placeholder="Buscar producto..."
+           aria-label="Search" [(ngModel)]="searchString">
+  </form>
+  <button class="nuevoProducto" mat-raised-button color="dro" (click)="openDialog(null)">Nuevo Producto</button>
+  <div class="center-table">
+    <table class="table">
+      <thead>
+      <tr class="table-header">
+        <th>Fecha</th>
+        <th>Categoría</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Costo</th>
+        <th>Valor venta</th>
+        <th>Fecha de Vencimiento</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let st of stock | filterPipe: searchString | paginate: { itemsPerPage: 10, currentPage: p}" [ngClass]="{'bajoStock': getDifference(st.quantity,st.min_quantity) == true}" class="cursor">
+        <td data-label="Fecha">{{st?.date | date: 'dd/MM/yyyy HH:mm' : 'utc'}} <span matTooltipPosition="below" matTooltip="Actualizado por ultima vez el: {{st.last_update | date: 'dd/MM/yyyy HH:mm' : 'utc'}} por {{st.updated_by}}" class="material-icons cursor icono">help_outline</span></td>
+        <td data-label="Categoria">{{st?.category}}</td>
+        <td data-label="Producto">{{st?.description}} <span class="material-icons cursor icono" (click)="openDialog(st)">edit</span></td>
+        <td data-label="Cantidad"><button class="noStyle"><span class="material-icons cursor icono" (click)="st.quantity=st.quantity-1;updateProduct(st.id,st)">remove</span></button>{{st?.quantity}}<button class="noStyle"><span class="material-icons cursor icono" (click)="st.quantity=st.quantity+1;updateProduct(st.id,st)">add</span></button></td>
+        <td data-label="Costo">{{st?.cost}}</td>
+        <td data-label="Valor venta">{{st?.sell_price}}</td>
+        <td data-label="Fecha de Vencimiento">{{st?.expiration_date | date: 'dd/MM/yyyy' : 'utc'}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <pagination-controls nextLabel="Siguiente" previousLabel="Anterior" (pageChange)="p = $event"></pagination-controls>
+</div>

@@ -1,0 +1,24 @@
+textarea{
+  width: 100%;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.botonesFooter{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer{
+  background-color: #b88476;
+}
+
+@media screen and (max-width: 800px){
+  .col-sm-6 {
+    width: 95% !important;
+  }
+}

@@ -1,0 +1,18 @@
+input[type='text']{
+  text-transform: uppercase;
+}
+
+.card-margin-bottom {
+  margin-bottom: 200px;
+}
+
+
+@media screen and (max-width: 800px) {
+  .m-5{
+    margin: 3rem 0 !important;
+  }
+  .col-sm-6{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

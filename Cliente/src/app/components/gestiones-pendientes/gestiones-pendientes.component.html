@@ -1,0 +1,33 @@
+<div *ngIf="!isLoaded" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded && !sinPendientes">
+  <div class="center-table">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Tipo de gestion</th>
+        <th>Fecha</th>
+        <th>Observaciones</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let gestion of gestionesPendientes">
+        <td class="center-name">{{gestion?.nombre_cliente}}</td>
+        <td data-label="Gestion">{{gestion?.nombre_gestion}}</td>
+        <td data-label="Fecha programada">{{gestion?.fecha_programada | date: 'dd/MM/yyyy HH:mm' : 'utc'}}</td>
+        <td data-label="Observacion">{{gestion?.observacion}}</td>
+        <td>
+          <button mat-raised-button color="dro" class="w-100" (click)="openDialog(gestion)">Ver</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div>
+  <h1 *ngIf="isLoaded && sinPendientes" id="sinPendientes">NO TIENES GESTIONES PENDIENTES</h1>
+</div>

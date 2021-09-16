@@ -1,0 +1,15 @@
+button{
+  float: right;
+  right: 10px;
+  bottom: 10px;
+}
+
+@media screen and (max-width: 990px) {
+  .m-5{
+    margin: 3rem 0 !important;
+  }
+  .col-sm-6{
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

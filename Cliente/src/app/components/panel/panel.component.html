@@ -1,0 +1,14 @@
+<div class="container-fluid" *ngIf="isLoaded">
+  <h1 class="text-center my-4 mat-display-2">Bienvenido {{usuario.nombreApellido}}</h1>
+  <div fxLayout="colum wrap" fxLayout.lt-sm="column" fxLayoutAlign="center" >
+    <div *ngFor="let card of panelView" fxFlex.lt-lg="0 1 calc(25%)" fxFlex.lt-md="0 1 calc(50%)"
+         fxFlex.lt-sm="0 1 calc(100%)" class="card-margin">
+      <a routerLink="/{{card.route}}" [hidden]="card.condition == 0" class="full-container">
+        <mat-card class="example-card">
+          <mat-card-title class="w-100">{{card.name}}</mat-card-title>
+        </mat-card>
+      </a>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,108 @@
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">Cargar Tratamientos</h2>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Categoria Padre</label>
+          </div>
+          <select [(ngModel)]="selected" class="custom-select" id="inputGroupSelect01">
+            <option disabled selected value="0">SELECCIONE UNA CATEGORIA...</option>
+            <option *ngFor="let tratamiento of tratamientos"
+                    value="{{tratamiento.id}}">{{tratamiento.nombre_tratamiento}}</option>
+          </select>
+        </div>
+
+        <ng-container *ngFor="let input of inputs; let index = index">
+          <div class="card" style="margin-bottom: 10px">
+            <div class="card-body">
+              <div class="input-group mb-3" style="margin-bottom: 0px !important">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Nombre</span>
+                </div>
+                <input type="text" class="form-control" placeholder="EJ: DEPILACION" aria-label="EJ: DEPILACION"
+                       aria-describedby="basic-addon1" [(ngModel)]="inputs[index]['nombre_tratamiento']"
+                       name="nombreTratamiento+{{index}}" required>
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-danger" type="button" (click)="delete(input)">Borrar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div style="padding-top: 10px">
+          <button type="submit" class="btn"
+                  (click)="addTratamiento()">Añadir +
+          </button>
+          <button type="submit" mat-raised-button color="dro" style="float: right" [disabled]="validateTratamientoCreation()"
+                  (click)="crearTratamiento()">Crear Tratamientos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #EditarTratamientoForm="ngForm">
+          <h2 class="card-title">Editar Tratamiento</h2>
+          <p>
+            <ng-autocomplete [data]="tratamientos" name="tratamientoSelected" [searchKeyword]="keyword"
+                             [itemTemplate]="itemTemplate"
+                             [notFoundTemplate]="notFoundTemplate" (selected)='copiarNombre($event)'
+                             (inputCleared)="nombreEditado=''"></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_tratamiento"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <a [innerHTML]="notFound"></a>
+            </ng-template>
+          </p>
+          <div class="card" style="margin-bottom: 10px">
+            <div class="card-body">
+              <div class="input-group mb-3" style="margin-bottom: 0px !important">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon2">Nombre</span>
+                </div>
+                <input type="text" class="form-control"
+                       aria-describedby="basic-addon1" [(ngModel)]="nombreEditado"
+                       name="nombreEditado" required>
+              </div>
+            </div>
+          </div>
+          <button type="submit" mat-raised-button color="dro" style="float: right" (click)="editarTratamiento()"
+                  [disabled]="!EditarTratamientoForm.valid">Editar Tratamiento
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6 card-margin-bottom">
+    <div class="card">
+      <div class="card-body">
+        <form >
+          <h2 class="card-title">Borrar Tratamiento</h2>
+          <p>
+            <ng-autocomplete [data]="tratamientos" name="tratamientoDelete" [searchKeyword]="keyword"
+                             [itemTemplate]="itemTemplate"
+                             [notFoundTemplate]="notFoundTemplate" (selected)='tratamientoDelete = $event'></ng-autocomplete>
+            <ng-template #itemTemplate let-item>
+              <a [innerHTML]="item.nombre_tratamiento"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate>
+              <a [innerHTML]="notFound"></a>
+            </ng-template>
+          </p>
+          <button type="submit" mat-raised-button color="dro-danger" style="float: right" [disabled]="tratamientoDelete==undefined" (click)="deleteTratamiento()">Borrar Tratamiento</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

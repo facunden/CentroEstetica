@@ -1,0 +1,47 @@
+.botones {
+  text-align: center;
+  margin: 30px auto;
+}
+
+button {
+  margin: 5px;
+  text-transform: uppercase;
+}
+
+.ampliarBoton {
+  width: 100%;
+}
+
+.card-margin {
+  margin: 1vh;
+}
+
+a{
+  text-decoration: none;
+}
+
+.example-card {
+  background-color: #b88476;
+  min-height: 150px;
+  width: 400px;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(128,128,128,0.25);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(128,128,128,0.25);
+  box-shadow: 10px 10px 5px 0px rgba(128,128,128,0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+}
+
+.full-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.subtitle{
+  color: lightgray;
+}
+

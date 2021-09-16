@@ -1,0 +1,41 @@
+<div *ngIf="isLoaded == false" class="spinner-border"
+     style="width: 10rem; height: 10rem; margin: 40vh auto;display: block; position: relative" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
+<div *ngIf="isLoaded == true">
+<form class="form-inline my-2 my-lg-3 justify-content-center">
+  <input class="form-control mr-sm-2 w-25" type="search" name="nombre" placeholder="Buscar proveedor..."
+         aria-label="Search" [(ngModel)]="searchString">
+</form>
+<div class="center-table">
+  <table class="table">
+    <thead>
+    <tr class="table-header">
+      <th>Nombre</th>
+      <th>Direccion</th>
+      <th>Telefono</th>
+      <th>E-Mail</th>
+      <th>CUIT</th>
+      <th>CF IVA</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proveedor of proveedores | filterPipe: searchString | paginate: { itemsPerPage: 10, currentPage: p}" class="cursor">
+      <td class="center-name">{{proveedor?.nombre_apellido}}</td>
+      <td data-label="Dirección">{{proveedor?.direccion}}</td>
+      <td data-label="Teléfono">{{proveedor?.telefono}}</td>
+      <td data-label="E-Mail">{{proveedor?.email}}</td>
+      <td data-label="CUIT">{{proveedor?.cuit}}</td>
+      <td data-label="IVA">{{proveedor?.condicion_iva}}</td>
+      <td data-label="ACCIONES">
+        <button mat-raised-button color="dro" (click)="router.navigate(['editar-proveedor/'+proveedor.id])">Editar
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination-controls previousLabel="Anterior" nextLabel="Siguiente" class="centrado" (pageChange)="p = $event"></pagination-controls>
+  <br>
+</div>
+</div>

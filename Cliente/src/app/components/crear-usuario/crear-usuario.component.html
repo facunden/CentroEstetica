@@ -1,0 +1,30 @@
+<div class="row justify-content-center m-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <form #CrearUsuarioForm="ngForm">
+          <h2 class="card-title">Crear nuevo usuario</h2>
+          <div class="form-group">
+            <label for="NombreUsuario">Nombre:</label>
+            <input type="text" class="form-control" id="NombreUsuario" name="NombreUsuario" [(ngModel)]="usuario.nombreApellido" required>
+          </div>
+          <div class="form-group">
+            <label for="usuario">Usuario:</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" [(ngModel)]="usuario.usuario" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="usuario.password" required>
+          </div>
+          <mat-checkbox [(ngModel)]="usuario.flagManejoTareas" name="flagManejoTareas" color="primary">Permiso manejo gestiones</mat-checkbox><br>
+          <mat-checkbox [(ngModel)]="usuario.flagCrearUsuario" name="flagCrearUsuario" color="primary">Permiso manejo usuario</mat-checkbox><br>
+          <mat-checkbox [(ngModel)]="usuario.flagManejoCaja" name="flagManejoCaja" color="primary">Permiso manejo caja</mat-checkbox><br>
+          <mat-checkbox [(ngModel)]="usuario.flagGiftCard" name="flagGiftCard" color="primary">Permiso gift cards</mat-checkbox><br>
+          <mat-checkbox [(ngModel)]="usuario.flagStock" name="flagStock" color="primary">Permiso stock</mat-checkbox><br>
+          <button mat-raised-button color="dro" (click)="CrearUsuario(usuario)" [disabled]="!CrearUsuarioForm.valid">Crear Usuario</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
