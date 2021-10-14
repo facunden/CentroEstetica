@@ -7,9 +7,9 @@ import {google} from "googleapis";
 import pool from '../database';
 
 const oauth2Client = new google.auth.OAuth2(
-    '9993682516-6hlon9lugbouemnpjl24e59kjcek0fff.apps.googleusercontent.com',
-    'p92yIypMWII55gfGNjEVpfve',
-    'https://gestiones-app.herokuapp.com/panel/calendar/code'
+    '357505571325-6s6v5d4m6401hi3d0i7gf7m3joqvtn5a.apps.googleusercontent.com',
+    'tEg3Of6OzzuJydtaUYji1rQF',
+    'http://localhost:3000/panel/calendar/code'
 );
 
 class PanelController {
@@ -30,7 +30,7 @@ class PanelController {
         const {tokens} = await oauth2Client.getToken(<any>req.query.code)
         oauth2Client.setCredentials(tokens);
         let a = await oauth2Client.getAccessToken();
-        res.redirect('https://gestiones.dro.com.ar/#/home?access_token='+a.token+'&refresh_token='+oauth2Client.credentials.refresh_token);
+        res.redirect('http://localhost:4200/#/home?access_token='+a.token+'&refresh_token='+oauth2Client.credentials.refresh_token);
     }
 
     public async getPermisoCategoria(req: Request, res: Response): Promise<void> {

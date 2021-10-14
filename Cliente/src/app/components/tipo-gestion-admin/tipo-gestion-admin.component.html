@@ -3,33 +3,13 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title">Crear Tipo Gestion</h2>
-<!--        <div class="input-group mb-3">-->
-<!--          <div class="input-group-prepend">-->
-<!--            <label class="input-group-text" for="inputGroupSelect01">Gestion padre</label>-->
-<!--          </div>-->
-<!--          <select [(ngModel)]="selected" class="custom-select" id="inputGroupSelect01">-->
-<!--            <option disabled selected value="0">SELECCIONE UNA CATEGORIA...</option>-->
-<!--            <option *ngFor="let tipoGestion of tiposDeGestion"-->
-<!--                    value="{{tipoGestion.id}}">{{tipoGestion.nombre_gestion}}</option>-->
-<!--          </select>-->
-<!--        </div>-->
-<!--        <ng-container *ngFor="let i of [].constructor(boxQuantity+1); let index = index">-->
-<!--          <div class="input-group mb-3">-->
-<!--            <div class="input-group-prepend">-->
-<!--              <label class="input-group-text" for="{{index}}">Gestion padre</label>-->
-<!--            </div>-->
-<!--            <select id="{{index}}" class="custom-select box-divider" [name]="index" (change)="chargeChild($event.target['value']);setTipoGestionSelected(selectedG[index].split('|')[1])">-->
-<!--              <option disabled selected value="{{index}}|0">SELECCIONE UNA CATEGORIA...</option>-->
-<!--              <option [selected]="selectedG[index] == index+'|'+gestion.id" *ngFor="let gestion of dataList[index]" value="{{index+'|'+gestion.id}}">{{gestion['nombre_gestion']}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--        </ng-container>-->
         <div class="form-group" *ngFor="let i of [].constructor(boxQuantity+1); let index = index">
           <ng-autocomplete id="{{index}}" [data]="dataList[index]"
                            placeHolder="Ingrese el nombre de un tipo de gestion..."
                            name="tipoGestionSelected" [searchKeyword]="keyword" [itemTemplate]="itemTemplate"
                            (selected)="chargeChild(index+'|'+$event.id);
                                setTipoGestionSelected(selectedG[index].split('|')[1])"
+                           (inputCleared)="staticCategory = false"
                            [notFoundTemplate]="notFoundTemplate"
           ></ng-autocomplete>
           <ng-template #itemTemplate let-item>
@@ -60,10 +40,6 @@
           numérica
         </mat-checkbox>
         <br>
-        <mat-checkbox [(ngModel)]="tipoDeGestion.crea_evento_calendar" [disabled]="staticCategory" name="creaEventoCalendar" color="primary">Crea
-          evento calendar
-        </mat-checkbox>
-        <br>
         <mat-checkbox [(ngModel)]="tipoDeGestion.crea_movimiento_caja" [disabled]="staticCategory" name="creaMovimientoCaja" color="primary">Crea
           movimiento caja
         </mat-checkbox>
@@ -82,49 +58,6 @@
     </div>
   </div>
 </div>
-<!--<div class="row justify-content-center m-5">-->
-<!--  <div class="col-sm-6">-->
-<!--    <div class="card">-->
-<!--      <div class="card-body">-->
-<!--        <form #CrearGestionForm="ngForm">-->
-<!--          <h2 class="card-title">Crear nuevo tipo de Gestion</h2>-->
-<!--          <div class="form-group">-->
-<!--            <label for="nombre">Nombre:</label>-->
-<!--            <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="tipoDeGestion.nombre_gestion" required>-->
-<!--          </div>-->
-<!--          <div class="form-group">-->
-<!--            <label for="categoriaGestion">Categoría:</label>-->
-<!--            <select id="categoriaGestion" class="form-control" name="categoriaGestion" [(ngModel)]="categoriaSelected.id" required>-->
-<!--              <option value="0">&#45;&#45;ELIJA UNA CATEGORÍA&#45;&#45;</option>-->
-<!--              <option *ngFor="let cg of categoriasGestiones" [ngValue]="cg.id">{{cg.descripcion}}</option>-->
-<!--            </select>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input type="checkbox" class="form-check-input" [(ngModel)]="tipoDeGestion.realizado_automatico" name="FlagRealizado" id="FlagRealizado">-->
-<!--            <label class="form-check-label" for="FlagRealizado">Realizado automático</label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input type="checkbox" class="form-check-input" [(ngModel)]="tipoDeGestion.es_numerica" name="observacionNumerica" id="observacionNumerica">-->
-<!--            <label class="form-check-label" for="observacionNumerica">Observacion numérica</label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input type="checkbox" class="form-check-input" [(ngModel)]="tipoDeGestion.es_tabulada" name="observacionTabulada" id="observacionTabulada">-->
-<!--            <label class="form-check-label" for="observacionTabulada">Observacion tabulada</label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input type="checkbox" class="form-check-input" [(ngModel)]="tipoDeGestion.crea_evento_calendar" name="creaEventoCalendar" id="creaEventoCalendar">-->
-<!--            <label class="form-check-label" for="creaEventoCalendar">Crea evento calendar</label>-->
-<!--          </div>-->
-<!--          <div class="form-check">-->
-<!--            <input type="checkbox" class="form-check-input" [(ngModel)]="tipoDeGestion.crea_movimiento_caja" name="creaMovimientoCaja" id="creaMovimientoCaja">-->
-<!--            <label class="form-check-label" for="creaMovimientoCaja">Crea movimiento caja</label>-->
-<!--          </div>-->
-<!--          <button type="submit" class="btn btn-success" (click)="crearTipoGestion()" [disabled]="!CrearGestionForm.valid || categoriaSelected.id==0">Crear Tipo gestion</button>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 <div class="row justify-content-center m-5">
   <div class="col-sm-6">
@@ -165,10 +98,6 @@
           <br>
           <mat-checkbox [(ngModel)]="tipoDeGestionEditSelected.es_numerica" name="observacionNumericaEdit"
                         color="primary">Observacion numérica
-          </mat-checkbox>
-          <br>
-          <mat-checkbox [(ngModel)]="tipoDeGestionEditSelected.crea_evento_calendar" name="creaEventoCalendarEdit"
-                        color="primary">Crea evento calendar
           </mat-checkbox>
           <br>
           <mat-checkbox [(ngModel)]="tipoDeGestionEditSelected.crea_movimiento_caja" name="creaMovimientoCajaEdit"

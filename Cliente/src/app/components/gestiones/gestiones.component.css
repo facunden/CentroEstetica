@@ -3,6 +3,10 @@
   width: 16px;
 }
 
+.w-90 {
+  width: 90%;
+}
+
 .botonesGestionesConObs {
   color: #39ace7;
   cursor: pointer;
@@ -67,6 +71,10 @@ tbody tr:nth-last-child(1){
 @media screen and (max-width: 800px) {
   .w-25 {
     width: 95% !important;
+  }
+
+  .w-90 {
+    width: 100% !important;
   }
 
   .center-table {

@@ -4,6 +4,10 @@
 <div *ngIf="isLoaded">
   <h2>{{cliente.nombre_cliente}}</h2>
 <div class="center-table">
+  <form class="form-inline my-2 my-lg-3 justify-content-center">
+    <input class="form-control mr-sm-2 w-90" type="search" name="nombre" placeholder="Buscar gestion..."
+           aria-label="Search" [(ngModel)]="searchString">
+  </form>
   <table class="table">
     <thead>
     <tr>
@@ -14,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let gestion of gestiones">
+    <tr *ngFor="let gestion of gestiones | filterPipe:searchString">
       <td data-label="Fecha">{{(gestion.flag_realizado ? gestion.fecha_realizado:gestion.fecha_programada) | date: 'dd/MM/yyyy HH:mm' : 'utc'}}</td>
       <td data-label="Gestión"><span *ngIf="gestion.gestion_concat">{{gestion.gestion_concat}}</span><span *ngIf="gestion.nombre_gestion && !gestion.gestion_concat">{{gestion.nombre_gestion}}</span><span *ngIf="gestion.tabulacion && !gestion.gestion_concat"> - {{gestion.tabulacion}}</span> <span *ngIf="gestion.obs_numerica"> - {{gestion.obs_numerica | number:undefined:'es-AR'}}</span></td>
       <td data-label="Estado" *ngIf="estadoGestion(gestion)=='realizado'"><svg style="margin-left: 20px !important;color: green" width="1.1em" height="1.1em" viewBox="0 0 16 16" class="bi bi-check-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

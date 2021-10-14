@@ -58,8 +58,7 @@ export class FilesService {
     const token = localStorage.getItem('apiToken');
     let folder = {
       "name": name,
-      "mimeType": "application/vnd.google-apps.folder",
-      "parents": ['17hDLuWfKnffSBEbT4BUuQykc3WiUbsUX']
+      "mimeType": "application/vnd.google-apps.folder"
     }
     return this.http.post('https://www.googleapis.com/drive/v3/files?access_token='+token,folder);
   }

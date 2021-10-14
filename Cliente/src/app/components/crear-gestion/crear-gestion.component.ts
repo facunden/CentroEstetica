@@ -44,12 +44,12 @@ export class CrearGestionComponent implements OnInit {
 
   gestionBase: TiposGestiones = {
     realizado_automatico: undefined,
-    nombre_gestion: "",
+    nombre_gestion: '',
     id_categoria_gestion: undefined,
     es_numerica: undefined,
     es_tabulada: undefined,
     tiene_nota: 0,
-    crea_evento_calendar:0,
+    crea_evento_calendar: 0,
     crea_movimiento_caja: 0,
     id: 0
   };
@@ -205,7 +205,7 @@ export class CrearGestionComponent implements OnInit {
           monto: this.gestion.obs_numerica,
           fecha: moment().toISOString(true),
           tipo: "I",
-          id_proveedor: "3"
+          id_proveedor: "33"
         }
         this.cajaService.insertarCaja(caja).subscribe(res =>{
         })

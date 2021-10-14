@@ -22,14 +22,15 @@ export class ListaCajaDiariaComponent implements OnInit {
   usuario: any;
   cajasCopy: any;
   sorting: boolean = false;
-  filterValue: string = "";
   proveedores: any;
   isLoaded: boolean = false;
   filtProv: string = "";
   filtImp: string = "";
+  filtOpt: string = "";
 
   @ViewChild('filtroImputacion') filtroImputacion: MatSelect;
   @ViewChild('filtroProveedor') filtroProveedor: MatSelect;
+  @ViewChild('filtroMedioPago') filtroMedioPago: MatSelect;
 
 
   constructor(private router: Router, private panelService: PanelService, private proveedorService : ProveedoresService,
@@ -98,6 +99,9 @@ export class ListaCajaDiariaComponent implements OnInit {
     if(this.filtImp != "" && this.filtProv != ""){
       this.cajas = this.cajas.filter(caja => caja.nombre_apellido == this.filtProv && caja.tipo == this.filtImp)
     }
+    if(this.filtImp == "E" || this.filtImp == "") {
+      this.filtroMedioPago.value= '';
+    }
     this.montoTotal();
   }
 
@@ -108,6 +112,10 @@ export class ListaCajaDiariaComponent implements OnInit {
       this.fDesde = undefined;
       this.filtroImputacion.value = "";
       this.filtroProveedor.value = "";
+      this.filtOpt = "";
+      this.filtImp = "";
+      this.filtProv = "";
+      this.filtroMedioPago.value = "";
       this.montoTotal();
     })
   }
@@ -169,6 +177,36 @@ export class ListaCajaDiariaComponent implements OnInit {
         this.sorting = !this.sorting;
       }
     }
+    this.montoTotal();
+  }
+
+  findByOption(option, fromUI?: boolean) {
+    if(option == "" && this.fDesde != undefined && this.fHasta != undefined){
+      this.filtrarEntreFechas();
+    }
+    if(option == "" && this.fDesde == undefined && this.fHasta == undefined){
+      this.getAll();
+      return;
+    }
+    if(fromUI){
+      if(this.fDesde != undefined && this.fHasta != undefined){
+        this.filtrarEntreFechas();
+      }
+      else {
+        this.cajas = this.cajasCopy;
+      }
+    }
+    this.filtImp = 'I';
+    this.filtOpt = option;
+    let arr = [];
+    this.cajas.map((c,index) => {
+      if(c.descripcion.split('-')[0].trim() == 'COBRO'){
+        if(c.descripcion.split('-')[1].trim() === option){
+          arr.push(this.cajas[index])
+        }
+      }
+    })
+    this.cajas = arr;
     this.montoTotal();
   }
 

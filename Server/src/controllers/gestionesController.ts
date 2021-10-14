@@ -163,6 +163,7 @@ class GestionesController{
             'tg.`id`,\n' +
             'tg.`nombre_gestion`,' +
             'tg.`crea_evento_calendar`,\n' +
+            'tg.`crea_movimiento_caja`,\n' +
             'tg.realizado_automatico,\n' +
             'upc.`id_usuario`,\n' +
             'tg.`id_categoria_gestion`,'+
@@ -183,6 +184,7 @@ class GestionesController{
             'tg.`id`,\n' +
             'tg.`nombre_gestion`,' +
             'tg.`crea_evento_calendar`,\n' +
+            'tg.`crea_movimiento_caja`,\n' +
             'tg.realizado_automatico,\n' +
             'upc.`id_usuario`,\n' +
             'tg.`es_numerica`,\n' +
@@ -193,7 +195,6 @@ class GestionesController{
             '\n' +
             'INNER JOIN usuario_permisos_categorias AS upc ON upc.`id_categoria` = tg.`id_categoria_gestion`\n' +
             '            WHERE upc.`id_usuario` = ? AND tg.`fk_tipo_gestion` = ? AND tg.deshabilitada = 0',[idUsuario,fk_tipo_gestion], function (error,results,fields) {
-            console.log(error)
             res.json(results);
         });
     }

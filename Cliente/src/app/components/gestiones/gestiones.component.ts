@@ -27,7 +27,8 @@ export class GestionesComponent implements OnInit {
   isLoaded: boolean = false;
   idCliente: number;
   tratamiento: any;
-  permiso: any = {};
+  permiso: any = {}
+  searchString: string = '';
 
   constructor(private gestionesService: GestionesService, private router: Router, private activatedRoute: ActivatedRoute,
               private clientesService: ClientesService,private panelService: PanelService, private tratamientoService: TratamientosService,

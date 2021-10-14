@@ -20,7 +20,7 @@
     <div class="card">
       <div class="card-body">
         <form #EditarReferForm="ngForm">
-          <h2 class="card-title">Editar categoría de Tipo Gestion</h2>
+          <h2 class="card-title">Editar Referido</h2>
           <div class="form-group">
             <ng-autocomplete [data]="referidos"
                              placeHolder="Busque el referido que desee editar" (selected)="copiarNombre($event.nombre_referido);referidoSelected = $event"
@@ -50,7 +50,7 @@
     <div class="card">
       <div class="card-body">
         <form #DeleteReferForm="ngForm">
-          <h2 class="card-title">Editar categoría de Tipo Gestion</h2>
+          <h2 class="card-title">Borrar Referido</h2>
           <div class="form-group">
             <ng-autocomplete [data]="referidos"
                              placeHolder="Busque el referido que desea eliminar"(selected)="deleteId = $event.id"

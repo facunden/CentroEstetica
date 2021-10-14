@@ -26,17 +26,18 @@ export class NavbarComponent implements OnInit {
       else{
         this.showPanel = false;
       }
+    } else {
+      this.panelService.logged.subscribe(res =>{
+        this.isLogged = res;
+        this.usuario = JSON.parse(localStorage.getItem('usuario'));
+        if(this.usuario.flagCrearUsuario == 1){
+          this.showPanel = true;
+        }
+        else{
+          this.showPanel = false;
+        }
+      })
     }
-    this.panelService.logged.subscribe(res =>{
-      this.isLogged = res;
-      this.usuario = JSON.parse(localStorage.getItem('usuario'));
-      if(this.usuario.flagCrearUsuario == 1){
-        this.showPanel = true;
-      }
-      else{
-        this.showPanel = false;
-      }
-    })
   }
 
   ngOnInit() {

@@ -44,7 +44,7 @@ export class BuscarClientesComponent implements OnInit {
 
   buscarClientePorNombre(nombre) {
     this.clienteBuscado = true;
-    this.clientesService.getClientePorNombre(nombre).toPromise().then(res => {
+    this.clientesService.getClientePorNombre(nombre.trim()).toPromise().then(res => {
       this.clientes = res;
       this.clienteBuscado = false;
     });
