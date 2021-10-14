@@ -23,6 +23,7 @@ node_modules/
 tmp/
 temp/
 hooks/
+build/
 platforms/
 plugins/
 plugins/android.json
@@ -33,3 +34,4 @@ $RECYCLE.BIN/
 .DS_Store
 Thumbs.db
 UserInterfaceState.xcuserstate
+package-lock.json
