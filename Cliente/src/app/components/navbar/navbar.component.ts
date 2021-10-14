@@ -20,23 +20,14 @@ export class NavbarComponent implements OnInit {
     if(localStorage.getItem('usuario')){
       this.usuario = JSON.parse(localStorage.getItem('usuario'));
       this.isLogged = true;
-      if(this.usuario.flagCrearUsuario == 1){
+      if(this.usuario?.flagCrearUsuario == 1){
         this.showPanel = true;
       }
       else{
         this.showPanel = false;
       }
     } else {
-      this.panelService.logged.subscribe(res =>{
-        this.isLogged = res;
-        this.usuario = JSON.parse(localStorage.getItem('usuario'));
-        if(this.usuario.flagCrearUsuario == 1){
-          this.showPanel = true;
-        }
-        else{
-          this.showPanel = false;
-        }
-      })
+      this.checkLoggedIn();
     }
   }
 
@@ -45,8 +36,8 @@ export class NavbarComponent implements OnInit {
 
   logout(){
     localStorage.clear();
-    this.isLogged = false;
-    this.showPanel = false;
+    this.panelService.isloggedIn(false);
+    this.checkLoggedIn();
     this.router.navigate(['login']);
   }
 
@@ -68,6 +59,19 @@ export class NavbarComponent implements OnInit {
 
   search(){
     this.router.navigate(['buscarCliente/'+this.text]);
+  }
+
+  checkLoggedIn() {
+    this.panelService.logged.subscribe(res =>{
+      this.isLogged = res;
+      this.usuario = JSON.parse(localStorage.getItem('usuario'));
+      if(this.usuario?.flagCrearUsuario == 1){
+        this.showPanel = true;
+      }
+      else{
+        this.showPanel = false;
+      }
+    })
   }
 
 }

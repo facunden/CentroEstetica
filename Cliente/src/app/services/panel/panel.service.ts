@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import { Panel } from '../../models/panel'
 import {appSettings} from "../../models/appSettings";
 
@@ -10,7 +10,7 @@ import {appSettings} from "../../models/appSettings";
 
 export class PanelService {
 
-  logged:Subject<boolean> = new Subject();
+  logged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient) { }
 
